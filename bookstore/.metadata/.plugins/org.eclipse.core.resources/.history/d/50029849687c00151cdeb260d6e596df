@@ -1,0 +1,153 @@
+package jp.ac.asojuku.bookstore.action;
+
+import java.io.IOException;
+import jp.ac.asojuku.bookstore.dto.MemberDTO;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jp.ac.asojuku.bookstore.check.CheckSecurity;
+import jp.ac.asojuku.bookstore.check.EscapeHtmlTest;
+
+public class EntryMeber extends HttpServlet{
+
+	/* (非 Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO 自動生成されたメソッド・スタブ
+		/*
+		String name_sei = request.getParameter("name1");
+		String name_mei = request.getParameter("name2");
+		String name_hiragana_sei = request.getParameter("name3");
+		String name_hiragana_mei = request.getParameter("name4");
+		String nickname = request.getParameter("nickname");
+		String yuubinNo = request.getParameter("yuubinno");
+		String Prefecture = request.getParameter("pref");
+		String Addres1 = request.getParameter("addr1");
+		String Addres2 = request.getParameter("addr2");
+		String Tel1 = request.getParameter("tel1");
+		String Tel2 = request.getParameter("tel2");
+		String Tel3 = request.getParameter("tel3");
+		String mail1 = request.getParameter("email");
+		String mail2 = request.getParameter("email2");
+		String PASS = request.getParameter("password");
+		String PASS2 = request.getParameter("password2");
+		String sex = request.getParameter("sex");
+		*/
+		
+		//XSS chexk
+		/*
+		if (EscapeHtmlTest.escapeHTML(name_sei) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(name_mei) == true){
+			
+		}
+		if (EscapeHtmlTest.escapeHTML(name_hiragana_sei) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(name_hiragana_mei )== true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(nickname)== true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(yuubinNo)== true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Prefecture) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Addres1) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Addres2) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Tel1) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Tel2) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(Tel3) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(mail1) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(mail2) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(PASS) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(PASS2) == true){
+			
+		}
+		if(EscapeHtmlTest.escapeHTML(sex) == true){
+			
+		}
+		
+		
+		
+			
+		
+
+		// password AND password2 = password true OK
+		if (!PASS.equals(PASS2)) {
+
+		}
+
+		// mail1 AND mail2 = mail1 true OK
+
+
+		if (!mail1.equals(mail2)){
+
+		}
+
+		// Number of characters check
+
+		if (CheckSecurity.stringLengthCheck(name_sei, 1, 25) != 0){
+
+		} else if(CheckSecurity.stringLengthCheck(name_mei, 1, 25) != 0) {
+
+		} else if (CheckSecurity.stringLengthCheck(name_hiragana_sei, 1, 25) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(name_hiragana_mei, 1, 25) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(nickname, 1, 100) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(Addres1, 1, 50) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(Addres2, 1, 50) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(Tel1, 1, 3) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(Tel2, 1, 4) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(Tel3, 1, 4) != 0){
+
+
+		} else if (CheckSecurity.stringLengthCheck(nickname, 1, 100) != 0){
+		}
+		*/
+	}
+	private MemberDTO getMemerDTO(HttpServletRequest request){
+		MemberDTO member = new MemberDTO();
+		member.setName_sei(request.getParameter("name1"));
+		return member;
+		
+	}
+}

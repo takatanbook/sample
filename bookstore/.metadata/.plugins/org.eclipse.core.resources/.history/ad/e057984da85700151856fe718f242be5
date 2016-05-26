@@ -1,0 +1,10 @@
+package jp.ac.asojuku.bookstore.action;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.sql.*;
+import jp.ac.asojuku.bookstore.dao.DBManager;
+
+public class Sata {
+
+}

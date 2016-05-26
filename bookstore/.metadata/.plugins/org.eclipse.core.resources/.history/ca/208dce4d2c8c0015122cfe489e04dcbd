@@ -1,0 +1,71 @@
+package jp.ac.asojuku.bookstore.bao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jp.ac.asojuku.bookstore.dto.MemberDTO;
+import jp.ac.asojuku.bookstore.entity.MemberEntity;
+import jp.ac.asojuku.bookstore.exception.BookStoreSystemErrorException;
+import jp.ac.asojuku.bookstore.exception.DBConnectException;
+import jp.ac.asojuku.bookstore.entity.MemberEntity;
+public class EntlyMemberDao extends DBManager{
+	private static final String MEMBER_INFO_BY_UP_SQL = "SELECT * FROM member WHERE "
+			+ MemberEntity.MEMBER_ID+"=?";
+	private MemberEntity getMail(String mail)throws BookStoreSystemErrorException {
+		Logger logger = LoggerFactory.getLogger(EntlyMemberDao.class);
+		MemberDTO member = new MemberDTO();
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		MemberEntity entity = null;
+		
+		
+		
+		try{
+			
+			statement = con.prepareStatement(MEMBER_INFO_BY_UP_SQL);
+			statement.setString(1,member.getMail1());
+			rs = statement.executeQuery();
+			while(rs.next()){
+				entity = new MemberEntity();
+				entity.setMemb_id(rs.getString(MemberEntity.MEMBER_ID));
+				entity.setMemb_fast_name(rs.getString(MemberEntity.MEMBER_FAST_NAME));
+				entity.setMemb_last_name(rs.getString(MemberEntity.MEMBER_LAST_NAME));
+				entity.setMemb_name_fast(rs.getString(MemberEntity.MEMBER_NAME_FAST));
+				entity.setMemb_name_last(rs.getString(MemberEntity.MEMBER_NAME_LAST));
+				entity.setMemb_nickname(rs.getString(MemberEntity.MEMBER_NICKNAME));
+				entity.setMemb_postal_code(rs.getString(MemberEntity.MEMBER_POSTAL_CODE));
+				entity.setMemb_prefecture(rs.getString(MemberEntity.MEMBER_PREFECTURE));
+				entity.setMemb_city(rs.getString(MemberEntity.MEMBER_CITY));
+				entity.setMemb_house_num(rs.getString(MemberEntity.MEMBER_HOSE_NUM));
+				entity.setMemb_number(rs.getString(MemberEntity.MEMBER_NUMBER));
+				entity.setSex(rs.getString(MemberEntity.SEX));
+				entity.setPassword(rs.getString(MemberEntity.PASSWORD));
+			}
+			
+		
+		}catch (SQLException e){
+			logger.info("SQL ERROR",e);
+		}finally {
+			try {
+		        // 接続を閉じる
+	        	if( rs != null ){
+					rs.close();
+	        	}
+	        	if( statement != null ){
+		        	statement.close();
+	        	}
+			} catch (SQLException e) {
+				;	//closeの失敗は無視
+			}
+		}
+		
+		
+		return entity;
+	}
+	
+	
+
+}

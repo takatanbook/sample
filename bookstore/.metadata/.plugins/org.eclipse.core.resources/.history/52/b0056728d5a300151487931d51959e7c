@@ -1,0 +1,118 @@
+package jp.ac.asojuku.bookstore.bao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jp.ac.asojuku.bookstore.entity.LoginLogEntity;
+import jp.ac.asojuku.bookstore.exception.DBConnectException;
+
+public class LoginLog extends DBManager{
+	private  static final String SQLINSERT = "INSERT INTO logininfo(" 
+			+ LoginLogEntity.MEMBER_MAIL +  ") VALUES (?)";
+	private static final String UPDATE_LOGIN = "UPDATE logininfo SET"
+			+LoginLogEntity.LOGIN_DATE + " = " + "?" + "WHERE" + LoginLogEntity.MEMBER_MAIL 
+			+ "= ?";
+	//新規に会員登録された時にinsertする時の引数
+	private static final int  LOGININFO_INSERT  = 1;
+	//ログイン時にデータベースにログイン情報を保持
+	private static final int  UPDATE_LOGININFO_INSERT_MAIL  = 2;
+	private static final int  UPDATE_LOGININFO_INSERT_DATE  = 1;
+	
+	public int setLoginlog(String member)throws SQLException, DBConnectException{
+		Logger logger = LoggerFactory.getLogger(LoginLog.class);
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		LoginLogEntity entity = null;
+		int num = 0;
+		try{
+			
+		//データベースに接続
+		connect();
+		if( con == null ){
+			return num;
+		}
+		//トランザクションを開始
+		beginTranzaction();
+		
+		statement = con.prepareStatement(SQLINSERT);
+		statement.setString(LOGININFO_INSERT,member);
+		num = statement.executeUpdate();
+		
+		//コミット
+		commit();
+		
+		} catch (SQLException e){
+			e.printStackTrace();
+			logger.info("登録時にログイン時為にユーザーIDをログイン情報テーブルにデータを保持できませんでした" + e);
+			
+		} finally {
+			try {
+		        // 接続を閉じる
+	        	if( rs != null ){
+					rs.close();
+	        	}
+	        	if( statement != null ){
+		        	statement.close();
+	        	}
+	        		
+	        	}catch(SQLException e){
+	        		e.printStackTrace();
+	        		logger.info("接続をとじれませんでした" + e);
+	        	}
+		}
+		return num;
+	}
+	public  int setLoginDate(String member,Date date)throws SQLException, DBConnectException{
+		Logger logger = LoggerFactory.getLogger(LoginLog.class);
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		LoginLogEntity entity = null;
+		int num = 0;
+		
+		try{
+			
+			//データベースに接続
+			connect();
+			if( con == null ){
+				return num;
+			}
+			//トランザクションを開始
+			beginTranzaction();
+			
+			statement = con.prepareStatement(UPDATE_LOGIN);
+			statement.setDate(UPDATE_LOGININFO_INSERT_DATE,(Date)date);
+			statement.setString(UPDATE_LOGININFO_INSERT_MAIL, member);
+			num = statement.executeUpdate();
+			
+			//コミット
+			commit();
+			
+			} catch (SQLException e){
+				e.printStackTrace();
+				 logger.info("ログイン情報を保存する時にエラーが発生しました"+e);
+				
+			} finally {
+				try {
+			        // 接続を閉じる
+		        	if( rs != null ){
+						rs.close();
+		        	}
+		        	if( statement != null ){
+			        	statement.close();
+		        	}
+		        		
+		        	}catch(SQLException e){
+		        		e.printStackTrace();
+		        		logger.info("接続をとじれませんでした" + e);
+		        	}
+			}
+			return num;
+		
+	}
+
+}

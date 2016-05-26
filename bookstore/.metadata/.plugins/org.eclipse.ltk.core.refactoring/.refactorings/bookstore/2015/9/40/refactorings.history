@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from プロジェクト &apos;bookstore&apos;&#x0D;&#x0A;- 元のプロジェクト: &apos;bookstore&apos;&#x0D;&#x0A;- オリジナル要素: &apos;jp.ac.asojuku.bookstore.bo.LoginBoImpl.java&apos;" description="要素の削除" element1="/WEB-INF\/src&lt;jp.ac.asojuku.bookstore.bo{LoginBoImpl.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1443507466238" subPackages="false" version="1.0"/>
+</session>

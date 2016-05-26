@@ -1,0 +1,51 @@
+package jp.ac.asojuku.bookstore.bao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jp.ac.asojuku.bookstore.entity.LoginLogEntity;
+import jp.ac.asojuku.bookstore.exception.DBConnectException;
+
+public class LoginLog extends DBManager{
+	private  static final String SQLINSERT = "INSERT INTO logininfo(" 
+			+ LoginLogEntity.MEMBER_MAIL +  ") VALUES (?)";
+	private static final int  LOGININFO_INSERT  = 1;
+	
+	public  LoginLogEntity setLoginlog(String member)throws SQLException, DBConnectException{
+		Logger logger = LoggerFactory.getLogger(LoginLog.class);
+		PreparedStatement statement = null;
+		ResultSet rs = null;
+		LoginLogEntity entity = null;
+		try{
+			
+		//データベースに接続
+		connect();
+		if( con == null ){
+			return null;
+		}
+		
+		statement = con.prepareStatement(SQLINSERT);
+		statement.setString(LOGININFO_INSERT,member);
+		rs = statement.executeQuery();
+		while(rs.next()){
+			entity.setId(rs.getInt(LoginLogEntity.MEMBER_ID));
+			entity.setMember_id(rs.getString(LoginLogEntity.MEMBER_MAIL));
+			entity.setDate(rs.getDate(LoginLogEntity.LOGIN_DATE));
+			entity.setDate_logout(rs.getDate(LoginLogEntity.LOGOUT_DATE));
+			
+			
+		}
+		
+		} catch(Exception e){
+			
+		}
+		return entity;
+	}
+	
+	
+
+}

@@ -1,0 +1,7 @@
+package jp.ac.asojuku.bookstore.action;
+
+import javax.servlet.http.HttpServlet;
+
+public class LoginAction extends HttpServlet {
+
+}
