@@ -1,0 +1,78 @@
+package jp.asojuku.testmanagement.action;
+
+import java.io.IOException;
+
+import jp.asojuku.testmanagement.bo.LoginBo;
+import jp.asojuku.testmanagement.dto.MemberInfoDto;
+import jp.asojuku.testmanagement.entity.MemberEntity;
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+
+public class LoginAction extends HttpServlet{
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO 自動生成されたメソッド・スタブ
+		String name;
+		String pass;
+		MemberInfoDto memberinfo = new MemberInfoDto();
+		name = req.getParameter("username");
+		pass = req.getParameter("password");
+		MemberEntity entity;
+		try{
+			LoginBo login = new  LoginBo();
+			entity = login.getMemberInfoByUserPassword(name, pass);
+			
+		}catch(SystemErrorExcepton e){
+			RequestDispatcher rd = req.getRequestDispatcher("view/login.jsp");
+			rd.forward(req, resp);
+		}
+		
+		if(entity == null){
+			
+			RequestDispatcher rd = req.getRequestDispatcher("view/login.jsp");
+			rd.forward(req, resp);
+		}
+		memberinfo = chage(entity);
+		setLoginInfoToSession(request,memberinfo);
+		//画面転送
+		RequestDispatcher rd = request.getRequestDispatcher("view/top.jsp");
+		rd.forward(request, resp);
+		
+		
+	}
+	public MemberInfoDto chage(MemberEntity entity){
+		MemberInfoDto memberinfo = new MemberInfoDto();
+		memberinfo.setName( entity.getMailAddress() );
+		return memberinfo;
+	}
+	private void fowardLoginErrDisp(HttpServletRequest request, HttpServletResponse resp) throws IOException, SystemErrorExcepton{
+		//エラーメッセージをセット
+		String errMsg;
+
+		errMsg = "ログインできませんでした。メールアドレスかパスワードが間違っています。";
+
+		request.setAttribute("errMsg",errMsg );
+
+		//画面転送
+		RequestDispatcher rd = request.getRequestDispatcher("view/login.jsp");
+		rd.forward(request, resp);
+
+	}
+	private void setLoginInfoToSession(HttpServletRequest request, MemberInfoDto  loginInfo){
+
+		HttpSession session = request.getSession(false);
+
+		if( session != null ){
+			//セッションをいったん破棄
+			session.invalidate();
+		}
+
+		//セッション再作成
+		session = request.getSession(true);
+
+		session.setAttribute("logininfo", loginInfo);
+	}
+	
+
+
+}

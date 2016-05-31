@@ -1,0 +1,5 @@
+contextsDir=/Users/takamichi/Documents/apache-tomcat-7.0.64/conf/Catalina/localhost
+eclipse.preferences.version=1
+tomcatConfigFile=/Users/takamichi/Documents/apache-tomcat-7.0.64/conf/server.xml
+tomcatDir=/Users/takamichi/Documents/apache-tomcat-7.0.64
+tomcatVersion=tomcatV7

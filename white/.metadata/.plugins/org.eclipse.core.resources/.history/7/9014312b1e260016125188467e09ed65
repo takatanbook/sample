@@ -1,0 +1,14 @@
+package jp.asojuku.testmanagement.exception;
+
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
+public class SystemError extends Exception {
+	public SystemError(NamingException str) {
+		super(str);
+	}
+	public SystemError(SQLException  str) {
+		super(str);
+	}
+}
