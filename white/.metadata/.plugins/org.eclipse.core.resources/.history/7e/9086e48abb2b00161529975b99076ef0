@@ -1,0 +1,25 @@
+package jp.asojuku.testmanagement.Vailidator;
+
+public class LoginInfoVailidator {
+	
+	//学校の管理者用のメールアドレスの正規表現
+	private static String ManagerMail = "[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@asojuku.ac.jp";
+	
+	//学校の学生用のメールアドレスの正規表現
+	private static String StudentMail = "[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@st.asojuku.ac.jp";
+	
+	//管理者か学生を判定する(1は、管理者-2は、生徒-３は、不正)
+	public static int MailCheck(String mail){
+		int n;
+		
+		if (mail.matches(ManagerMail)) {
+		  n = 1;
+		} else if(mail.matches(StudentMail)){
+		  n = 2;
+		}else{
+		  n = 3;
+		}
+		return n;
+	}
+
+}

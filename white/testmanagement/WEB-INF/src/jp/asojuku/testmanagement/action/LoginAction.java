@@ -11,47 +11,52 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.asojuku.testmanagement.bo.LoginBo;
-import jp.asojuku.testmanagement.dto.MemberInfoDto;
-import jp.asojuku.testmanagement.entity.MemberEntity;
+import jp.asojuku.testmanagement.dto.LogonInfoDTO;
 import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
 
 public class LoginAction extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		LogonInfoDTO logon1;
+		HttpSession session = req.getSession(false);
+		logon1 = (LogonInfoDTO)session.getAttribute("logininfo");
+		if(logon1 == null){
+			RequestDispatcher rd = req.getRequestDispatcher("view/error.jsp");
+			rd.forward(req, resp);
+		}
 		String name;
 		String pass;
-		MemberInfoDto memberinfo = new MemberInfoDto();
+		
+		//MemberInfoDto memberinfo = new MemberInfoDto();
 		name = req.getParameter("username");
 		pass = req.getParameter("password");
-		MemberEntity entity;
+		LogonInfoDTO logon;
 		try{
+			
 			LoginBo login = new  LoginBo();
-			entity = login.getMemberInfoByUserPassword(name, pass);
+			logon = login.getMemberInfoByUserPassword(name, pass);
+			
 			//ログインできてるか？
-			if(entity == null){
+			if(logon == null){
 				
 				fowardLoginErrDisp(req,resp);
 			}
-			memberinfo = entityChageDto(entity);
-			setLoginInfoToSession(req,memberinfo);
+			
+			//いらないコード
+			//memberinfo = entityChageDto(entity);
+			
+			setLoginInfoToSession(req,logon);
 			//画面転送
 			RequestDispatcher rd = req.getRequestDispatcher("view/top.jsp");
 			rd.forward(req, resp);
-			
 		}catch(SystemErrorExcepton | SQLException e){
 			//システムエラーがおきた時にシステムエラーpegeにジャンプ。
 			RequestDispatcher rd = req.getRequestDispatcher("view/error.jsp");
 			rd.forward(req, resp);
 		}
 		
-	}
-	
-	public MemberInfoDto entityChageDto(MemberEntity entity){
-		MemberInfoDto memberinfo = new MemberInfoDto();
-		memberinfo.setName( entity.getMailAddress() );
-		return memberinfo;
+		
 	}
 	private void fowardLoginErrDisp(HttpServletRequest request, HttpServletResponse resp) throws IOException, SystemErrorExcepton, ServletException{
 		//エラーメッセージをセット
@@ -66,7 +71,7 @@ public class LoginAction extends HttpServlet{
 		rd.forward(request, resp);
 
 	}
-	private void setLoginInfoToSession(HttpServletRequest request, MemberInfoDto  loginInfo){
+	private void setLoginInfoToSession(HttpServletRequest request, LogonInfoDTO  logoninfo){
 
 		HttpSession session = request.getSession(false);
 
@@ -78,9 +83,6 @@ public class LoginAction extends HttpServlet{
 		//セッション再作成
 		session = request.getSession(true);
 
-		session.setAttribute("logininfo", loginInfo);
+		session.setAttribute("logininfo", logoninfo);
 	}
-	
-
-
 }

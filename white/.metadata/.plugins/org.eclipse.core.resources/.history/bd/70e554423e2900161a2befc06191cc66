@@ -1,0 +1,130 @@
+package jp.asojuku.testmanagement.bo;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
+import jp.asojuku.testmanagement.Vailidator.LoginInfoVailidator;
+import jp.asojuku.testmanagement.dto.LogonInfoDTO;
+import jp.asojuku.testmanagement.entity.ManageEntity;
+import jp.asojuku.testmanagement.entity.StudentEntity;
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+import jp.asojuku.testmanagement.model.Dbcontrol;
+
+public class LoginBo {
+	
+	//学生用のログイン用のSQL文
+	private static final String STUDENT_INFO_BY_UP_SQL =
+				"SELECT * FROM member_tbl WHERE "+StudentEntity.STUDENT_MAIL+"=? AND "+StudentEntity.STUDENT_PASS+"=?";
+	
+	//管理者のログイン用のSQL文
+	private static final String MANAGE_INFO_BY_UP_SQL =
+			"SELECT * FROM member_tbl WHERE "+ManageEntity.MANAGE_MAIL+"=? AND "+ManageEntity.MANAGE_PASS+"=?";
+	
+	//学生用のPreparedStatementにセットする数字
+	private static final int STUDENT_INFO_BY_UP_NAME_IDX = 1;
+	private static final int STUDENT_INFO_BY_UP_PASS_IDX = 2;
+	
+	//管理者用のPreparedStatementにセットする数字
+	private static final int MANAGE_INFO_BY_UP_NAME_IDX = 1;
+	private static final int MANAGE_INFO_BY_UP_PASS_IDX = 2;
+	public LogonInfoDTO memberinfo;
+	
+	public LogonInfoDTO getMemberInfoByUserPassword(String userName,String password) throws SQLException, SystemErrorExcepton{
+
+		//PreparedStatement ps = null;
+		ResultSet rs = null;
+		StudentEntity Sentity = null;
+		ManageEntity  Eentity = null;
+		Dbcontrol db = new Dbcontrol();
+		
+		int n;
+		n = LoginInfoVailidator.MailCheck(userName);
+		
+        try {
+        	
+        	db.connect();
+        	if( n == 1){
+    			db.prepareStatement(MANAGE_INFO_BY_UP_SQL);
+
+    	        db.setString(MANAGE_INFO_BY_UP_NAME_IDX, userName);
+    	        db.setString(MANAGE_INFO_BY_UP_PASS_IDX, password);
+
+    	        rs = db.executeQuery();
+    	       
+    	        while(rs.next()){
+    	        	Eentity = new ManageEntity();
+    	           
+    	        	Eentity.setManageId(rs.getString(ManageEntity.MANAGE_ID));
+    	        	Eentity.setManageName(rs.getString(ManageEntity.MANAGE_NAME));
+    	        }
+    	        
+    	        memberinfo = EentityChageDto(Eentity);
+        	}else if(n == 2){
+        	
+        		db.prepareStatement(STUDENT_INFO_BY_UP_SQL);
+
+		        db.setString(STUDENT_INFO_BY_UP_NAME_IDX, userName);
+		        db.setString(STUDENT_INFO_BY_UP_PASS_IDX, password);
+	
+		        rs = db.executeQuery();
+		       
+		        while(rs.next()){
+		        	Sentity = new StudentEntity();
+		           
+		        	
+		        	Sentity.setStudentName(rs.getString(StudentEntity.STUDENT_NAME));
+		        	Sentity.setStudentId(rs.getString(StudentEntity.STUDENT_ID));
+		        	Sentity.setStudentMail(rs.getString(StudentEntity.STUDENT_MAIL));
+		        	Sentity.setStudentNameKana(rs.getString(StudentEntity.STUDENT_NAME_KANA));
+		        	Sentity.setStudentBirth(rs.getDate(StudentEntity.STUDENT_BIRTH));
+		        	Sentity.setDepartId(rs.getString(StudentEntity.DEPART_ID));
+		        	Sentity.setStudentYear(rs.getInt(StudentEntity.STUDENT_YEAR));
+		        	Sentity.setStudentClassName(rs.getString(StudentEntity.STUDNET_CLASS_NAME));
+		        	Sentity.getStudentExistFlg(rs.getInt(StudentEntity.STUDENT_EXIST_FLG))
+		        }
+		        memberinfo = entityChageDto(Sentity);
+
+	        }else {
+	        	memberinfo = null;
+	        }
+	        
+	       
+		} catch (SQLException e) {
+		
+			throw new SystemErrorExcepton();
+
+		} catch (NamingException e) {
+			
+			e.printStackTrace();
+			throw new SystemErrorExcepton();
+		} finally {
+
+	        // 接続を閉じる
+        	if( rs != null ){
+				rs.close();
+        	}
+        	if( db.isExits()){
+	        	db.close2();
+        	}
+        	
+    		db.close();
+		}
+		return memberinfo;
+	}
+	//エンティティをDTOに変換
+	public LogonInfoDTO entityChageDto(StudentEntity entity){
+		LogonInfoDTO memberinfo = new LogonInfoDTO();
+		memberinfo.setName( entity.getStudentName() );
+		memberinfo.setId( entity.getStudentId() );
+		return memberinfo;
+	}
+	//エンティティをDTOに変換
+	public LogonInfoDTO EentityChageDto(ManageEntity entity){
+		LogonInfoDTO memberinfo = new LogonInfoDTO();
+		memberinfo.setName( entity.getManageMail() );
+		memberinfo.setId( entity.getManageId() );
+		return memberinfo;
+	}
+}

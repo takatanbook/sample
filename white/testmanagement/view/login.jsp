@@ -6,9 +6,9 @@
 </head>
 <body>
 <form action="login" method="POST">
-ユーザー名<input type="text" name="username"><br>
-パスワード<input type="text" name="password"><br>
-<input type="submit" value="ログイン" />
+	ユーザー名<input type="text" name="username"><br>
+	パスワード<input type="text" name="password"><br>
+	<input type="submit" value="ログイン" />
 </form>
 </body>
 </html>

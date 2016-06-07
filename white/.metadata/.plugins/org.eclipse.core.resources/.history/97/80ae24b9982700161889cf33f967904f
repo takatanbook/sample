@@ -1,0 +1,30 @@
+package jp.asojuku.testmanagement.entity;
+
+import java.sql.Date;
+
+public class StudentEntity {
+	
+	public static String STUDENTID         = "sdt_id";
+	public static String STUDENTMAIL       = "sdt_email";
+	public static String STUDENTNAME       = "sdt_name";
+	public static String STUDENTNAMEKANA   = "sdt_name_kana";
+	public static String STUDENTPASS       = "sdt_passwd";
+	public static String STUDENTBIRTH      = "sdt_birth";
+	public static String DEPARTID          = "depart_std_id";
+	public static String STUDENTYEAR       = "sdt_year";
+	public static String STUDNETCLASSNAME  = "class_name";
+	public static String STUDENTEXIT_FLG   = "exist_flg";
+	
+	private String  StudentId;
+	private String  StudentMail;
+	private String  StudentName;
+	private String  StudetNameKana;
+	private Date    StudentBirth;
+	private String  DepartId;
+	private int     StudentYear;
+	private String  StudentClassName;
+	private int StudentExitFlg;
+	
+	
+
+}

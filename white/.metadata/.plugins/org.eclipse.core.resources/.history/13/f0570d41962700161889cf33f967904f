@@ -1,0 +1,9 @@
+package jp.asojuku.testmanagement.entity;
+
+public class StudentEntity {
+	public static String STDENTID       = "sdt_id";
+	public static String STDENTMAIL     = "sdt_email";
+	public static String STDENTNAME     = "sdt_name";
+	public static String STDENTNAMEKANA = "";
+
+}

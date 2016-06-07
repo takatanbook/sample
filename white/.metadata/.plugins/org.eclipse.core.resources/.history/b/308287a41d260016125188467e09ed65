@@ -1,6 +1,0 @@
-package jp.asojuku.testmanagement.exception;
-
-public class SystemError extends Exception {
-	
-	
-}

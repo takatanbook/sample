@@ -1,0 +1,18 @@
+package jp.asojuku.testmanagement.entity;
+
+import java.sql.Date;
+
+public class ManageEntity {
+	public static String MANAGE_ID         = "manage_id";
+	public static String MANAGE_NAME       = "manage_name";
+	public static String MANAGE_NAME_KANA  = "manage_name_kana";
+	public static String MANAGE_PASS       = "manage_pass";
+	public static String MANAGE_MAIL       = "manage_email";
+	
+	private String  ManageId;
+	private String  StudentName;
+	private String  StudetNameKana;
+	private String  StudentMail;
+
+
+}
