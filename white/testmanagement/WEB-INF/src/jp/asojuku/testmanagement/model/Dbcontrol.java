@@ -58,7 +58,34 @@ public class Dbcontrol {
 			}
 		}
 	}
-	
+	//トランザクションを実行する
+	public void beginTranzaction() throws SQLException{
+			if( con != null ){
+				con.setAutoCommit(false);
+			}
+	}
+	//トランザクションを確定
+	public void commit() throws SQLException{
+		if( con != null ){
+			try {
+				con.commit();
+			} finally{
+				con.setAutoCommit(true);
+			}
+		}
+
+	}
+	//ロールバックします
+	public void rollback() throws SQLException{
+		if( con != null ){
+			try {
+				con.rollback();
+			} finally{
+				con.setAutoCommit(true);
+			}
+		}
+
+	}
 	public void  prepareStatement(String name) throws SQLException{
 		if( con != null ){
 			//throw new DbconectErrorException();
