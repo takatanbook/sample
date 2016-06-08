@@ -1,0 +1,60 @@
+bo -
+	メンバー変数にSQL文を変数を入れる。
+	--private static final String STUDENT_DELETE_SQL = ""
+	プリペアードスタートメンントのSQLで？に指定した時のインデックス。
+	--private static final int STUDENT_DLETE_SDT_ID_IDX = 1;
+
+	-public int DeleteStudent(string stdId)
+	
+		int result;
+		Dbcontrol db = new Dbcontrol();//インスタンス作成
+		try {
+
+			db.coneect //データベースに接続
+			//トランザクション開始
+			db.beginTranzaction()
+			//ﾌﾟﾘﾍﾟｱﾄｰﾄﾞｽﾃｰﾄﾒﾝﾄｾｲｾｲ
+			db.prepareStatement(STUDENT_DELETE_SQL);
+			//値をセット
+			db.setString(STUDENT_DLETE_SDT_ID_IDX,stdId);
+			//sqlを実行
+			rusult= executeUpdate();
+			db.commit();
+		} catch (SQLException e) {
+				//ロールバック
+				SafeRollback(db)
+				throw new SystemErrorExcepton();
+
+		} catch (NamingException e) {
+				SafeRollback(db)
+				e.printStackTrace();
+				throw new SystemErrorExcepton();
+		} finally {
+
+		        // 接続を閉じる
+	        	if( rs != null ){
+					rs.close();
+	        	}
+	        	//psとconをからにする
+	    		db.close();
+		}
+		return result;
+	}
+	private void SafeRollback(Dbcontrol db){
+
+		try {
+			db.rollback();
+		} catch (SQLException e) {
+			//ログの出力のみ
+			System.out.println("ロールバックに失敗しました："+e);
+		}
+
+	}
+
+
+・action側で
+       boのインスタンスさくせい
+       int result; 
+       //けんすうが帰ってくる
+       result bo.DeleteStudent(stdId);
+
