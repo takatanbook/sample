@@ -137,8 +137,8 @@ public class LoginBo {
         	studententity.setStudentClassName(rs.getString(StudentEntity.STUDNET_CLASS_NAME));
         	studententity.setStudentExistFlg(rs.getInt(StudentEntity.STUDENT_EXIST_FLG));
         	
+        	memberinfo = chageentityTodto(studententity);
         }
-        memberinfo = chageentityTodto(studententity);
         return memberinfo;
 	}
-}
+}`

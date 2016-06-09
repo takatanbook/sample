@@ -87,7 +87,7 @@ public class Dbcontrol {
 
 	}
 	public void  prepareStatement(String name) throws SQLException{
-		if( con != null ){
+		if( con == null ){
 			//throw new DbconectErrorException();
 			return;
 		}
