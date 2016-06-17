@@ -1,0 +1,8 @@
+package jp.asojuku.testmanagement.entity;
+
+public class TestListEntity {
+	public static final String TEST_DAY     = "test_day"; 
+	public static final String TEST_SPONSOR = "test_sponsor";
+	public static final String TEST_NAME    = "test_name";
+	public static final String TEST_ID      = "test_id";
+}

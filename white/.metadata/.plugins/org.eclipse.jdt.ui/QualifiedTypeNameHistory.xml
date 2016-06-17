@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="java.sql.SQLException"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-<fullyQualifiedTypeName name="jp.asojuku.testmanagement.model.Dbcontrol"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.entity.MemberEntity"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.bo.LoginBo"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.dto.MemberInfo"/>
@@ -21,10 +20,18 @@
 <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.entity.ManageEntity"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.entity.StudentEntity"/>
-<fullyQualifiedTypeName name="jp.asojuku.testmanagement.dto.LogonInfoDTO"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.Vailidator.LoginInfoVailidator"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.exception.SystemErrorExcepton"/>
 <fullyQualifiedTypeName name="jp.asojuku.testmanagement.exception.DbconectErrorException"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.entity.TestEntity"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.entity.TestListEntity"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.model.Dbcontrol"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.dto.TestInfoDto"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServlet"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.dto.LogonInfoDTO"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.bo.SeachTestKeywordBo"/>
+<fullyQualifiedTypeName name="jp.asojuku.testmanagement.dto.TestSeachResultDto"/>
 </qualifiedTypeNameHistroy>

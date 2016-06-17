@@ -1,5 +1,0 @@
-package jp.asojuku.testmanagement.dto;
-
-public class LogonInfoDTO {
-
-}

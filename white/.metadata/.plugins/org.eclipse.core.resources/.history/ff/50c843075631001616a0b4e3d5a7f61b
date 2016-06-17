@@ -1,0 +1,28 @@
+package jp.asojuku.testmanagement.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestSeachResultDto 
+{
+	private List<TestInfoDto> testlist;
+
+	public List<TestInfoDto> getTestlist() 
+	{
+		return testlist;
+	}
+
+	public void setTestlist(List<TestInfoDto> testlist)
+	{
+		this.testlist = testlist;
+	}
+	public void add(TestInfoDto testlist)
+	{
+		if (this.testlist == null)
+		{
+			this.testlist = new ArrayList<TestInfoDto>();
+		}
+		this.testlist.add(testlist);
+	}
+	
+}

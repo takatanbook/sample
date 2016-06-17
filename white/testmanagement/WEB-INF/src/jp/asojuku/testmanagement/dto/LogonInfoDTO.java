@@ -6,6 +6,7 @@ public class LogonInfoDTO implements Serializable {
 	
 	private String id;
 	private String name;
+	private int authority;
 
 	public String getName() {
 		return name;
@@ -21,5 +22,13 @@ public class LogonInfoDTO implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(int authority) {
+		this.authority = authority;
 	}
 }

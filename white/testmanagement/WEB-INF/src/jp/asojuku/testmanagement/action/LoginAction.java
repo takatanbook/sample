@@ -18,13 +18,7 @@ public class LoginAction extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LogonInfoDTO logon1;
-		HttpSession session = req.getSession(false);
-		logon1 = (LogonInfoDTO)session.getAttribute("logininfo");
-		if(logon1 == null){
-			RequestDispatcher rd = req.getRequestDispatcher("view/error.jsp");
-			rd.forward(req, resp);
-		}
+	
 		String name;
 		String pass;
 		
@@ -41,6 +35,7 @@ public class LoginAction extends HttpServlet{
 			if(logon == null){
 				
 				fowardLoginErrDisp(req,resp);
+				return;
 			}
 			
 			//いらないコード

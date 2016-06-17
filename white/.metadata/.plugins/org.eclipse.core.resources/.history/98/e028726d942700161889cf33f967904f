@@ -1,7 +1,0 @@
-package jp.asojuku.testmanagement.entity;
-
-public class StudentEntity {
-	public static String STDENTID = "sdt_id";
-	public static String STDENTMAIL = "";
-
-}

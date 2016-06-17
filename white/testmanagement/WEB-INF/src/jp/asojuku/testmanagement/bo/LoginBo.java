@@ -16,11 +16,11 @@ public class LoginBo {
 	
 	//学生用のログイン用のSQL文
 	private static final String STUDENT_INFO_BY_UP_SQL =
-				"SELECT * FROM member_tbl WHERE "+StudentEntity.STUDENT_MAIL+"=? AND "+StudentEntity.STUDENT_PASS+"=?";
+				"SELECT * FROM student WHERE "+StudentEntity.STUDENT_MAIL+"=? AND "+StudentEntity.STUDENT_PASS+"=?";
 	
 	//管理者のログイン用のSQL文
 	private static final String MANAGE_INFO_BY_UP_SQL =
-			"SELECT * FROM member_tbl WHERE "+ManageEntity.MANAGE_MAIL+"=? AND "+ManageEntity.MANAGE_PASS+"=?";
+			"SELECT * FROM manage WHERE "+ManageEntity.MANAGE_MAIL+"=? AND "+ManageEntity.MANAGE_PASS+"=?";
 	
 	//学生用のPreparedStatementにセットする数字
 	private static final int STUDENT_INFO_BY_UP_NAME_IDX = 1;
@@ -33,12 +33,13 @@ public class LoginBo {
 
 	private LogonInfoDTO memberinfo;
 	
-	public LogonInfoDTO getMemberInfoByUserPassword(String userName,String password) throws SQLException, SystemErrorExcepton{
+	public LogonInfoDTO getMemberInfoByUserPassword(String name,String pass) throws SQLException, SystemErrorExcepton{
 
 		ResultSet rs = null;
 		
 		Dbcontrol db = new Dbcontrol();
-		
+		String userName = "";
+		userName = name;
 		int n;
 		n = LoginInfoVailidator.MailCheck(userName);
 		
@@ -46,17 +47,17 @@ public class LoginBo {
         	
         	db.connect();
         	if( n == LoginInfoVailidator.MANAGE_INFO_IDX){
-        		memberinfo = LogonManageSelect(userName,password,db);
+        		memberinfo = LogonManageSelect(userName,pass,db);
         	}else if(n == LoginInfoVailidator.STUDENT_INFO_IDX){
         	
-        		memberinfo = LogonStudentSelect(userName,password,db);
+        		memberinfo = LogonStudentSelect(userName,pass,db);
 	        }else {
 	        	memberinfo = null;
 	        }
 	        
 	       
 		} catch (SQLException e) {
-		
+			System.out.print(e.getMessage());
 			throw new SystemErrorExcepton();
 
 		} catch (NamingException e) {
@@ -78,6 +79,7 @@ public class LoginBo {
 		LogonInfoDTO memberinfo = new LogonInfoDTO();
 		memberinfo.setName( entity.getStudentName() );
 		memberinfo.setId( entity.getStudentId() );
+		memberinfo.setAuthority(LoginInfoVailidator.STUDENT_INFO_IDX);
 		return memberinfo;
 	}
 	//エンティティをDTOに変換
@@ -85,6 +87,7 @@ public class LoginBo {
 		LogonInfoDTO memberinfo = new LogonInfoDTO();
 		memberinfo.setName( entity.getManageMail() );
 		memberinfo.setId( entity.getManageId() );
+		memberinfo.setAuthority(LoginInfoVailidator.MANAGE_INFO_IDX);
 		return memberinfo;
 	}
 	public LogonInfoDTO LogonManageSelect(String name,String pass,Dbcontrol db) throws SQLException{
@@ -105,10 +108,11 @@ public class LoginBo {
         	manageentity.setManageName(rs.getString(ManageEntity.MANAGE_NAME));
         	manageentity.setManageNameKana(rs.getString(ManageEntity.MANAGE_NAME_KANA));
         	manageentity.setManageMail(rs.getString(ManageEntity.MANAGE_MAIL));
+        	memberinfo = chageentityTodto(manageentity);
         }
         
         
-        memberinfo = chageentityTodto(manageentity);
+        
         return memberinfo;
 
 		
@@ -136,9 +140,10 @@ public class LoginBo {
         	studententity.setStudentYear(rs.getInt(StudentEntity.STUDENT_YEAR));
         	studententity.setStudentClassName(rs.getString(StudentEntity.STUDNET_CLASS_NAME));
         	studententity.setStudentExistFlg(rs.getInt(StudentEntity.STUDENT_EXIST_FLG));
-        	
         	memberinfo = chageentityTodto(studententity);
+        	
         }
+        
         return memberinfo;
 	}
-}`
+}

@@ -1,0 +1,71 @@
+package jp.asojuku.testmanagement.bo;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
+import org.apache.commons.lang3.StringUtils;
+
+import jp.asojuku.testmanagement.dto.TestSeachResultDto;
+import jp.asojuku.testmanagement.entity.TestListEntity;
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+import jp.asojuku.testmanagement.model.Dbcontrol;
+
+
+public class SeachTestKeywordBo 
+{
+	private static final String  TEST_SEACH_INFO_SQL = "SELECT" + TestListEntity.TEST_DAY + "," + TestListEntity.TEST_SPONSOR + "," + TestListEntity.TEST_NAME +
+			 "FROM test_list WHERE" + TestListEntity.TEST_NAME + "?";
+	private static final int     TEST_SEACH_INFO_SQL_IDX = 1;
+	
+	public TestSeachResultDto seachTestKeyword(String keyword) throws SQLException, SystemErrorExcepton{
+		ResultSet rs = null;
+		TestListEntity testlistentity;
+		String keyword_resut;
+		keyword_resut = makeLikeParameter(keyword);
+		Dbcontrol db = new Dbcontrol();
+		try{
+			db.connect();
+			db.prepareStatement(TEST_SEACH_INFO_SQL);
+			db.setString(TEST_SEACH_INFO_SQL_IDX,keyword_resut );
+		
+			rs = db.executeQuery();
+			while(rs.next()){
+				testlistentity = new TestListEntity();
+				testlistentity.setTest_name(rs.getString(testlistentity.TEST_NAME));
+				testlistentity.setTest_sponsor(rs.getString(testlistentity.TEST_SPONSOR));
+				testlistentity.setTest_day(rs.getDate(testlistentity.TEST_DAY));
+			}
+		} catch (SQLException e) {
+			System.out.print(e.getMessage());
+			throw new SystemErrorExcepton();
+
+		} catch (NamingException e) {
+			
+			e.printStackTrace();
+			throw new SystemErrorExcepton();
+		} finally {
+
+	        // 接続を閉じる
+        	if( rs != null ){
+				rs.close();
+        	}
+    		db.close();
+		}
+		
+		
+		
+	}
+	private String makeLikeParameter(String param){
+
+		//%があった場合を考慮
+		StringUtils.replace(param, "%", "\\%");
+		//_があった場合を考慮
+		StringUtils.replace(param, "_", "\\_");
+
+		return "%"+param+"%";
+	}
+	
+	
+}

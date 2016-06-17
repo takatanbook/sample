@@ -5,7 +5,7 @@
 <title>ログイン</title>
 </head>
 <body>
-<form action="login" method="POST">
+<form action="<%=request.getContextPath() %>/auth" method="POST" >
 	ユーザー名<input type="text" name="username"><br>
 	パスワード<input type="text" name="password"><br>
 	<input type="submit" value="ログイン" />
