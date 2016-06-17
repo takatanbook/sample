@@ -1,0 +1,13 @@
+package jp.asojuku.testmanagement.bo;
+
+import jp.asojuku.testmanagement.entity.TestListEntity;
+
+public class SeachTestKeyword 
+{
+	private static final String  TEST_SEACH_INFO_SQL = "SELECT" + TestListEntity.TEST_DAY + "," + TestListEntity.TEST_SPONSOR + "," + TestListEntity.TEST_NAME +
+			 "FROM test_list WHERE" + TestListEntity.TEST_NAME + "LIKE '%?%'";
+	private static final int     TEST_SEACH_INFO_SQL_IDX = 1;
+	
+	
+	
+}

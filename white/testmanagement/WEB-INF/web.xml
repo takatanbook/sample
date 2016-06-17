@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<web-app>
+
+  <servlet>
+	<servlet-name>SeachTestInfoAction</servlet-name>
+	<servlet-class>jp.asojuku.testmanagement.action.SeachTestInfoAction</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>LoginStartAction</servlet-name>
+	<servlet-class>jp.asojuku.testmanagement.action.LoginStartAction</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>LoginAction</servlet-name>
+	<servlet-class>jp.asojuku.testmanagement.action.LoginAction</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>LogoutAction</servlet-name>
+	<servlet-class>jp.asojuku.testmanagement.action.LogoutAction</servlet-class>
+  </servlet>
+  
+
+ <servlet-mapping>
+	<servlet-name>LoginStartAction</servlet-name>
+	<url-pattern>/login</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+	<servlet-name>LoginAction</servlet-name>
+	<url-pattern>/auth</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+	<servlet-name>SeachTestInfoAction</servlet-name>
+	<url-pattern>/seachtestinfo</url-pattern>
+ </servlet-mapping>
+  
+  <servlet-mapping>
+	<servlet-name>LogoutAction</servlet-name>
+	<url-pattern>/logout</url-pattern>
+ </servlet-mapping>
+  
+
+
+</web-app>
