@@ -1,9 +1,0 @@
-package jp.asojuku.testmanagement.dto;
-import java.sql.Date;
-public class TestInfoDto
-{
-	private Date ExaminationDate;
-	private String Sponsor;
-	private String TestName;
-	
-}
