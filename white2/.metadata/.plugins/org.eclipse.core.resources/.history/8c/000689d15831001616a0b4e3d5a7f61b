@@ -1,0 +1,29 @@
+package jp.asojuku.testmanagement.dto;
+import java.sql.Date;
+public class TestInfoDto
+{
+	private Date ExaminationDate;
+	private String Sponsor;
+	private String TestName;
+	
+	public Date getExaminationDate() {
+		return ExaminationDate;
+	}
+	public void setExaminationDate(Date examinationDate) {
+		ExaminationDate = examinationDate;
+	}
+	public String getSponsor() {
+		return Sponsor;
+	}
+	public void setSponsor(String sponsor) {
+		Sponsor = sponsor;
+	}
+	public String getTestName() {
+		return TestName;
+	}
+	public void setTestName(String testName) {
+		TestName = testName;
+	}
+	
+	
+}
