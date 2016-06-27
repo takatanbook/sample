@@ -1,0 +1,74 @@
+package jp.asojuku.testmanagement.util;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.axiom.util.base64.Base64Utils;
+
+public class CipherHelper {
+	 /**
+	   * 文字列を16文字の秘密鍵でAES暗号化してBase64した文字列で返す
+	 */
+	 public static String encrypt(String originalSource, String secretKey, String algorithm)
+	         throws NoSuchAlgorithmException, NoSuchPaddingException,
+	         InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+	
+	      byte[] originalBytes = originalSource.getBytes();
+	      byte[] encryptBytes = cipher(
+	            Cipher.ENCRYPT_MODE, originalBytes, secretKey, algorithm);
+	      String encryptBytesBase64 = Base64Utils.encode(encryptBytes);
+	      return new String(encryptBytesBase64);
+	  }
+	  /**
+	    * Base64されたAES暗号化文字列を元の文字列に復元する
+	    */
+	  public static String decrypt(String encryptBytesBase64String,
+	      String secretKey, String algorithm) throws NoSuchAlgorithmException,
+	      NoSuchPaddingException, InvalidKeyException,
+	      IllegalBlockSizeException, BadPaddingException {
+
+	      byte[] encryptBytes = Base64Utils.decode(encryptBytesBase64String);
+	      byte[] originalBytes = cipher(
+	            Cipher.DECRYPT_MODE, encryptBytes, secretKey, algorithm);
+	      return new String(originalBytes);
+	   }
+
+	   /**
+	    * 暗号化/複合化の共通部分
+	    */
+	   private static byte[] cipher(
+	         int mode, byte[] source, String secretKey, String algorithm)
+	               throws InvalidKeyException, NoSuchAlgorithmException,
+	               NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+	      byte[] secretKeyBytes = secretKey.getBytes();
+
+	      SecretKeySpec secretKeySpec = new SecretKeySpec(secretKeyBytes, algorithm);
+	      Cipher cipher = Cipher.getInstance(algorithm);
+	      cipher.init(mode, secretKeySpec);
+	      return cipher.doFinal(source);
+	   }
+	   /**
+	    *  try {
+         		String key = "1234567890123456"; // キーは16文字で
+         		String original = "This is a source of string!!"; // 元の文字列
+         		String algorithm = "AES"; // 暗号化方式
+         
+         		String encrypedResult = CipherHelper.encrypt(original, key, algorithm);
+         		System.out.println("暗号化文字列：" + encrypedResult);
+
+         		String decryptedResult = CipherHelper.decrypt(encrypedResult, key, algorithm);
+         		System.out.println("復号化文字列：" + decryptedResult);
+
+      			} catch (Exception e) {
+         			e.printStackTrace();
+      			}
+   			}
+	    * 
+	    * */
+
+}

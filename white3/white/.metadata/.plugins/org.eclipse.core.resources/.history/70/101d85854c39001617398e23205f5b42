@@ -1,0 +1,23 @@
+package jp.asojuku.testmanagement.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SeachTestHistoryStudentResultDTO {
+	private List<SeachTestHistoryStudentDTO> studentinfolist;
+
+	public List<SeachTestHistoryStudentDTO> getStudentinfolist() {
+		return studentinfolist;
+	}
+
+	public void setStudentinfolist(List<SeachTestHistoryStudentDTO> studentinfolist) {
+		this.studentinfolist = studentinfolist;
+	}
+	public void add(SeachTestHistoryStudentDTO studentdto){
+		if(studentinfolist == null){
+			studentinfolist = new ArrayList<SeachTestHistoryStudentDTO>();
+		}
+		studentinfolist.add(studentdto);
+	}
+	
+}

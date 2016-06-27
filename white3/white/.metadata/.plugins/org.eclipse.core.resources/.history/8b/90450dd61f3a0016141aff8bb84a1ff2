@@ -1,0 +1,43 @@
+package jp.asojuku.testmanagement.dto;
+
+import java.util.Date;
+
+public class SeachStudentHistoryTestDTO {
+	
+	private String studentSdtName;
+	private Date   testDay;
+	private String testSponsor;
+	private String testName;
+	private String examationResult;
+	
+	public String getStudentSdtName() {
+		return studentSdtName;
+	}
+	public void setStudentSdtName(String studentSdtName) {
+		this.studentSdtName = studentSdtName;
+	}
+	public Date getTestDay() {
+		return testDay;
+	}
+	public void setTestDay(Date testDay) {
+		this.testDay = testDay;
+	}
+	public String getTestSponsor() {
+		return testSponsor;
+	}
+	public void setTestSponsor(String testSponsor) {
+		this.testSponsor = testSponsor;
+	}
+	public String getTestName() {
+		return testName;
+	}
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+	public String getExamationResult() {
+		return examationResult;
+	}
+	public void setExamationResult(String examationResult) {
+		this.examationResult = examationResult;
+	}
+}

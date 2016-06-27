@@ -1,0 +1,33 @@
+
+<html>
+<head>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ page import="jp.asojuku.testmanagement.dto.SeachTestHistoryStudentDTO" %>
+<%@ page import="jp.asojuku.testmanagement.dto.SeachTestHistoryStudentResultDTO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+</head>
+<body>
+<%
+	SeachTestHistoryStudentResultDTO resultdto =
+			(SeachTestHistoryStudentResultDTO)request.getAttribute("seachstudentlogtextresult");
+	String keyword = resultdto.getKeyword();
+	List<SeachTestHistoryStudentDTO> list = resultdto.getStudentinfolist();
+	if(list == null){
+		System.out.println("null");
+	}
+%>
+<h1><%= keyword %></h1>
+<% for(SeachTestHistoryStudentDTO data: list) {%>
+	<h1><%=data.getStudent_id() %></h1>
+	<h1><%=data.getStudent_name() %></h1>
+	<h1><%=data.getGrade() %></h1>
+	<h1><%=data.getDepartment() %></h1>
+<%} %>
+
+</body>
+</html>

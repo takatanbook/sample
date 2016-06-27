@@ -1,0 +1,9 @@
+package jp.asojuku.testmanagement.dto;
+
+public class StudentInfoDTO {
+	private String department;
+	private int grade;
+	private String class_name;
+	
+	
+}

@@ -1,0 +1,86 @@
+package jp.asojuku.testmanagement.bo;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
+import jp.asojuku.testmanagement.dto.SeachTestHistoryStudentDTO;
+import jp.asojuku.testmanagement.dto.SeachTestHistoryStudentResultDTO;
+import jp.asojuku.testmanagement.entity.StudentDepartmentEntity;
+import jp.asojuku.testmanagement.entity.StudentEntity;
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+import jp.asojuku.testmanagement.model.Dbcontrol;
+
+public class SeachStudentHistoryTestBo {
+	/*
+	 * （例）実行するSQL(古くからあるSQL)　WHERE
+	 select a.sdt_id, a.sdt_name, a.sdt_year,a.class_name,b.depart_std_name 
+	 from student as a , student_department as b
+	 where a.sdt_name like "%黒田弘樹%";
+	 （例）実行するSQL(新しいSQL)　INNER JOIN
+	 SELECT
+		student.sdt_id, 　student.sdt_name, 
+		student.sdt_year,　student.class_name,
+		student.depart_std_id,　student_department.depart_std_name 
+	FROM
+ 		student_department INNER JOIN student
+	ON
+  		student.depart_std_id = student_department.depart_std_id
+	WHERE
+	 	student.sdt_name = "%黒田弘樹%";
+	 * */
+	private static final String SEACH_STUDENT_HISTORY_TEST_BY_SQL = "SELECT" +
+	 "student.sdt_id , student.sdt_name , student.sdt_year, student.class_name,"+
+	 "student.depart_std_id, student_department.depart_std_name" +
+	 "FROM student_department INNER JOIN student" +
+	 "ON student.depart_std_id = student_department.depart_std_id" +
+	 "WHERE student.sdt_name = " + "?";
+	private static final int    SEACH_STUDENT_HISTORY_TEST_BY_IDX = 1;
+	public SeachTestHistoryStudentResultDTO seachStudentTestlog(String studenkeyword) throws  SystemErrorExcepton{
+		ResultSet rs = null;
+		Dbcontrol db = new Dbcontrol();
+		StudentEntity studententity;
+		StudentDepartmentEntity studentdepartmententity;
+		SeachTestHistoryStudentDTO dto = new SeachTestHistoryStudentDTO();
+		SeachTestHistoryStudentResultDTO seachtesthistorustudentresult = new SeachTestHistoryStudentResultDTO();
+		try {
+			db.connect();
+			db.prepareStatement(SEACH_STUDENT_HISTORY_TEST_BY_SQL);
+			db.setString(SEACH_STUDENT_HISTORY_TEST_BY_IDX,studenkeyword);
+			rs = db.executeQuery();
+			int count = 0;
+			while(rs.next()){
+				studententity            = new StudentEntity();
+				studentdepartmententity  = new StudentDepartmentEntity();
+				studententity.setStudentId(rs.getString(StudentEntity.STUDENT_ID));
+				studententity.setStudentName(rs.getString(StudentEntity.STUDENT_NAME));
+				studententity.setStudentYear(rs.getInt(StudentEntity.STUDENT_YEAR));
+				studententity.setStudentClassName(rs.getString(StudentEntity.STUDNET_CLASS_NAME));
+				studentdepartmententity.setDepart_sdt_name(rs.getString(StudentDepartmentEntity.DEPARTSDTNAME));
+				dto = chageEntityToDto(studententity,studentdepartmententity);
+				seachtesthistorustudentresult.add(dto);
+				count++;
+			}
+			seachtesthistorustudentresult.setSearchNum(count);
+			
+		} catch (NamingException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+			throw new SystemErrorExcepton();
+		} catch(SQLException e){
+			e.printStackTrace();
+			throw new SystemErrorExcepton();
+		}
+		return seachtesthistorustudentresult;
+	}
+	private SeachTestHistoryStudentDTO chageEntityToDto(StudentEntity sentity,StudentDepartmentEntity departmententity){
+		SeachTestHistoryStudentDTO dto = new SeachTestHistoryStudentDTO();
+		dto.setStudent_id(sentity.getStudentId());
+		dto.setStudent_name(sentity.getStudentName());
+		dto.setClass_name(sentity.getStudentClassName());
+		dto.setGrade(sentity.getStudentYear());
+		dto.setDepartment(departmententity.getDepart_sdt_name());
+		return dto;
+	}
+}

@@ -1,0 +1,31 @@
+package jp.asojuku.testmanagement.bo;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+import jp.asojuku.testmanagement.model.Dbcontrol;
+
+public class SeachStudentHistoryTestBo {
+	private static final String SEACH_STUDENT_HISTORY_TEST_BY_SQL = "";
+	private static final int    SEACH_STUDENT_HISTORY_TEST_BY_IDX = 1;
+	public void seachStudentTestlog(String studenkeyword) throws  SystemErrorExcepton{
+		ResultSet rs = null;
+		Dbcontrol db = new Dbcontrol();
+		try {
+			db.connect();
+			db.prepareStatement(SEACH_STUDENT_HISTORY_TEST_BY_SQL);
+			db.setString(SEACH_STUDENT_HISTORY_TEST_BY_IDX,studenkeyword);
+			rs = db.executeQuery();
+			
+			
+		} catch (NamingException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch(SQLException e){
+			
+		}
+	}
+}

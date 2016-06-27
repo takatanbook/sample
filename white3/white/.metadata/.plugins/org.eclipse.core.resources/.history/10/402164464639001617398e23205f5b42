@@ -1,0 +1,23 @@
+package jp.asojuku.testmanagement.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentInfoResultDTO {
+	private List<StudentInfoDTO> studentinfolist;
+
+	public List<StudentInfoDTO> getStudentinfolist() {
+		return studentinfolist;
+	}
+
+	public void setStudentinfolist(List<StudentInfoDTO> studentinfolist) {
+		this.studentinfolist = studentinfolist;
+	}
+	public void add(StudentInfoDTO studentdto){
+		if(studentinfolist == null){
+			studentinfolist = new ArrayList<StudentInfoDTO>();
+		}
+		studentinfolist.add(studentdto);
+	}
+	
+}

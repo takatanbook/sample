@@ -1,0 +1,10 @@
+package jp.asojuku.testmanagement.bo;
+
+import jp.asojuku.testmanagement.model.Dbcontrol;
+
+public class SeachStudentHistoryTestBo {
+	public void seachStudentTestlog(){
+		Dbcontrol db = new Dbcontrol();
+		db.close();
+	}
+}

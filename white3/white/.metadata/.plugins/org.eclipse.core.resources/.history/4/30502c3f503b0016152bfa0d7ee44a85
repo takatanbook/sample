@@ -1,0 +1,5 @@
+package jp.asojuku.testmanagement.util;
+
+public class CipherHelper {
+
+}
