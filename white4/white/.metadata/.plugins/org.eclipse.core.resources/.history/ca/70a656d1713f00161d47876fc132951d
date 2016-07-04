@@ -1,0 +1,25 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<%@ pege import="jp.asojuku.testmanagement.dto.TestSeachResultDto" %>
+<%@ pege import="jp.asojuku.testmanagement.dto.TestInfoDto" %>
+<%@ page import="java.util.List" %>
+<title></title>
+</head>
+
+<body>
+<%
+TestSeachResultDto testseachresultdto = (TestSeachResultDto)request.getAttribute("testseachresult");
+int conunt = testseachresultdto.getSearchNum();
+List<TestInfoDto> list =testseachresultdto.getTestlist();
+%>
+<% if(conunt == 0){ %>
+	
+<% }else{%>
+	<%for(TestInfoDto data: list) %>
+<% }%>
+
+</body>
+</html>

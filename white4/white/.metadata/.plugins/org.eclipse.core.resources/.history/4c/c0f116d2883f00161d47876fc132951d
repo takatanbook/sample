@@ -1,0 +1,36 @@
+package jp.asojuku.testmanagement.action;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import jp.asojuku.testmanagement.bo.DeleteTestInfoBo;
+import jp.asojuku.testmanagement.exception.SystemErrorExcepton;
+
+public class DeleteTestInfoAction extends HttpServlet{
+
+	
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String testId = req.getParameter("action");
+		DeleteTestInfoBo deletetestinfobo = new DeleteTestInfoBo();
+		int result = 0;
+		try{
+			result = deletetestinfobo.testinfodelete(testId);
+			
+		}catch(SystemErrorExcepton e){
+			
+		}catch(NamingException e){
+			
+		}catch( SQLException e){
+			
+		}
+	}
+	
+}

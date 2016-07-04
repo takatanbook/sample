@@ -1,0 +1,8 @@
+package jp.asojuku.testmanagement.bo;
+
+public class DeleteTestInfoBo {
+	public void testdeleteinfo(String testId){
+		
+		
+	}
+}

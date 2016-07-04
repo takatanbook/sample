@@ -1,0 +1,127 @@
+﻿package jp.asojuku.testmanagement.vailidator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentValidator {
+	private  String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
+
+	public List<String> sdtEmail(String sdt_email) {
+		List<String> errors = new ArrayList<String>();
+		if (sdt_email == null || sdt_email.trim().isEmpty() ||
+				!sdt_email.matches(mailFormat)) {
+			errors.add("メールアドレスは必ず正しく入力してください。");
+			return errors;
+			
+		}
+		return errors;
+	}
+
+	public List<String> sdtPasswd(String sdt_passwd,String sdt_passwd_confirm) {
+		List<String> errors = new ArrayList<String>();
+		if (sdt_passwd == null || sdt_passwd.trim().isEmpty() ||
+				sdt_passwd.length() > 20 || sdt_passwd_confirm == null || sdt_passwd_confirm.trim().isEmpty() ||
+				sdt_passwd_confirm.length() > 20 ||) {
+			errors.add("パスワードは必ず20桁以内で入力してください。");
+			return errors;
+		}
+		return errors;
+	}
+
+	public List<String>  sdtPasswdconfirm(String sdt_passwd_confirm) {
+		if (sdt_passwd_confirm == null || sdt_passwd_confirm.trim().isEmpty() ||
+				sdt_passwd_confirm.length() > 20) {
+			errors.add("パスワード確認は必ず20桁以内で入力してください。");
+			return sdt_passwd_confirm;
+		}
+		return sdt_passwd_confirm;
+	}
+
+	public static final String sdtName(String sdt_name) {
+		if (sdt_name == null || sdt_name.trim().isEmpty() ||
+				sdt_name.length() > 15) {
+			errors.add("氏名は必ず15桁以内で入力してください。");
+			return sdt_name;
+		}
+		return sdt_name;
+	}
+	public static final String sdtNamekana(String sdt_name_kana) {
+		if (sdt_name_kana == null || sdt_name_kana.trim().isEmpty() ||
+				sdt_name_kana.length() > 15) {
+			errors.add("フリガナは必ず15桁以内で入力してください。");
+			return sdt_name_kana;
+		}
+		return sdt_name_kana;
+	}
+
+	public static final String sdtId(String sdt_id) {
+		if (sdt_id == null || sdt_id.trim().isEmpty() || sdt_id.length() != 7) {
+			errors.add("学籍番号は必ず正しく入力してください。");
+			return sdt_id;
+		} else {
+			try {
+				Integer.parseInt(sdt_id);
+			} catch (NumberFormatException e) {
+				errors.add("学籍番号は数字を入力してください。");
+				return sdt_id;
+			}
+		}
+		return sdt_id;
+	}
+
+	public static final String Birthyear(String birth_year) {
+		if (birth_year == null || birth_year.trim().isEmpty()) {
+			errors.add("誕生年は必ず入力してください。");
+			return birth_year;
+		}
+		return birth_year;
+	}
+
+	public static final String Birthmonth(String birth_month) {
+		if (birth_month == null || birth_month.trim().isEmpty()) {
+			errors.add("誕生月は必ず入力してください。");
+			return birth_month;
+		}
+		return birth_month;
+	}
+
+	public static final String Birthday(String birth_day) {
+		if (birth_day == null || birth_day.trim().isEmpty()) {
+			errors.add("誕生日は必ず入力してください。");
+			return birth_day;
+		}
+		return birth_day;
+	}
+
+	public static final String departName(String depart_name) {
+		if (depart_name == null || depart_name.trim().isEmpty()) {
+			errors.add("学科は必ず入力してください。");
+			return depart_name;
+		}
+		return depart_name;
+	}
+
+	public static final String sdtYear(String sdt_year) {
+		if (sdt_year == null || sdt_year.trim().isEmpty()) {
+			errors.add("学年は必ず入力してください。");
+			return sdt_year;
+		}
+		return sdt_year;
+	}
+
+	public static final String className(String class_name) {
+		if (class_name == null || class_name.trim().isEmpty()) {
+			errors.add("クラスは必ず入力してください。");
+			return class_name;
+		}
+		return class_name;
+	}
+
+	public static final String existFlg(String exist_flg) {
+		if (exist_flg == null || exist_flg.trim().isEmpty()) {
+			errors.add("在学フラグは必ず入力してください。");
+			return exist_flg;
+		}
+		return exist_flg;
+	}
+}

@@ -1,0 +1,14 @@
+package jp.asojuku.testmanagement.vailidator;
+
+import java.util.List;
+
+public class TestValidator {
+	public List<String> sdtYear(String test_date ,List<String> err) {
+		
+		if (test_date == null || test_date.trim().isEmpty()) {
+			err.add("学年は必ず入力してください。");
+			return err;
+		}
+		return err;
+	}
+}

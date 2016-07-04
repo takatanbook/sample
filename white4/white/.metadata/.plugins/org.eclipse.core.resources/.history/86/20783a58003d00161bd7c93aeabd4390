@@ -1,0 +1,14 @@
+package jp.asojuku.testmanagement.util;
+
+public class GetCSV {
+	public void main(){
+		
+	
+	lines = Files.lines("");
+	List<List<String>> values = lines
+	            .skip(1)
+	            .map(line -> Arrays.asList(line.split(",")))
+	            .filter(list -> list.get(0).equals("Neda")) // keep only items where the name is "Neda"
+	            .collect(Collectors.toList());
+	}
+}
