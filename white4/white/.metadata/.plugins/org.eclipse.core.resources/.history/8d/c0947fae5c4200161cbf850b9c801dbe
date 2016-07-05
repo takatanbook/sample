@@ -45,12 +45,6 @@ public class SeachTestInfoAction extends HttpServlet{
 			 String keyword = (String)req.getParameter("keyword");
 			 SeachTestKeywordBo seachbo = new SeachTestKeywordBo();
 			 testseachresultdto = seachbo.seachTestKeyword(keyword);
-			 if(testseachresultdto.getSearchNum() == 0){
-				 req.setAttribute("errMsg","検索されたキーワードに一致するものは、ありませんでした。" );
-				 RequestDispatcher rd = req.getRequestDispatcher("view/top.jsp");
-				 rd.forward(req, resp);
-				 return;
-			 }
 			 setTestSeachResultToRequest(req,testseachresultdto);
 			 //検定情報一覧画面(G3-2-1)飛ばす
 			 RequestDispatcher rd = req.getRequestDispatcher("view/test.jsp");
