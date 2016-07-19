@@ -1,0 +1,26 @@
+INDEX VERSION 1.127+/Users/takamichi/Desktop/結合/white/.metadata/.plugins/org.eclipse.jdt.core
+3368383281.index
+4126898495.index
+1537590692.index
+325061775.index
+3210912141.index
+440743949.index
+1229563885.index
+2401055690.index
+1704727219.index
+622929354.index
+763319867.index
+957162654.index
+657092020.index
+3893733844.index
+3886640424.index
+1929622858.index
+2148325005.index
+66824587.index
+219212267.index
+1593758747.index
+510272699.index
+2522688960.index
+591561392.index
+1271342938.index
+4237618202.index
